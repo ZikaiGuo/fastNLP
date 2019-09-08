@@ -41,6 +41,8 @@ class TransformerEncoder(nn.Module):
             :param seq_mask: [batch, seq_len]
             :return: [batch, seq_len, model_size]
             """
+            if seq_mask is None:  # 检查seq_mask是否为空
+                seq_mask = 1
             attention = self.atte(input, input, input, atte_mask_out)
             norm_atte = self.norm1(attention + input)
             attention *= seq_mask
